@@ -129,6 +129,7 @@ const VaporTransitionGroupImpl = /*@__PURE__*/ defineVaporComponent({
         NO,
         NO,
         NO,
+        NO,
       )
     }
 

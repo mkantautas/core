@@ -63,6 +63,9 @@ export let ownsTransitionMode: (
 // v-show target above the outlet (or `persisted`); the branch leaving it
 // leaves structurally otherwise
 export let resolveOutletLeave: ResolveOutletLeaveFn
+// a slot root flipping invalid beside sibling roots: reported once they
+// settled (one of them may render in this flush); false to report it now
+export let deferSlotRootFlip: (frag: DynamicFragment) => boolean
 
 export let isTransitionEnabled = false
 
@@ -75,7 +78,9 @@ export function registerTransitionHooks(
   awaitLeaving: (block: Block, cb: () => void) => boolean,
   transitionChild: (block: Block) => boolean,
   resolveLeave: ResolveOutletLeaveFn,
+  deferFlip: (frag: DynamicFragment) => boolean,
 ): void {
+  deferSlotRootFlip = deferFlip
   isTransitionEnabled = true
   ownsTransitionMode = ownsMode
   applyTransitionHooks = applyHooks
